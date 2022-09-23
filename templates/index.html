@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+    <div class="alert alert-success alert-dismissible fade show" size="font-size:1.5rem" role="alert">
+        {{message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+{% endfor %}
+{% if report %}
+<h1>Here is your analysis report !</h1>
+<br/>
+
+
+    {% if report[0]=="Non-Toxic" %}
+    <br/>
+    <p style="font-size:2.5rem; "> Hurray!! The given text is: <span style="color:#2cb80c">{{''.join(report)}}</span></p>
+    <!-- <div style="color:#3c8816 !important;">
+        <h5>{{''.join(report)}}.</h5>
+    </div> -->
+    {% else %}
+    <br/>
+    <p style="font-size:2.5rem; "> Oh no!! The given text is: <span style="color:#FF0000">{{', '.join(report)}}</span></p>
+    <!-- <div style="color:#8f1616e1;">
+        <h5>Oh no!! The given text is {{', '.join(report)}}</h5>
+    </div> -->
+    
+    {% endif %}
+{% else %}
+<h1>Please provide the text that you want to check for toxicity.</h1>
+<br />
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.comment.label(class="form-label") }}
+    {{ form.comment(class="form-control") }}
+    <br />
+    {{ form.submit(class="btn btn-dark") }}
+</form>
+{% endif %}
+
+{% endblock %}
