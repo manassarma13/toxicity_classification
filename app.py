@@ -7,7 +7,7 @@ import torch
 from torch import nn
 from torchtext.data.utils import get_tokenizer
 from utils import RNNClassifier
-
+device = device if torch.cuda.is_available() else "cpu"
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "Rajarshi"
 
@@ -40,12 +40,12 @@ class RNNClassifier(nn.Module):
 
     def forward(self, X_batch):
         embeddings = self.embedding_layer(X_batch)
-        output, hidden = self.lstm(embeddings, (torch.randn(2 * n_layers, len(X_batch), hidden_dim, device = "cuda"), torch.randn(2 * n_layers, len(X_batch), hidden_dim, device = "cuda")))
+        output, hidden = self.lstm(embeddings, (torch.randn(2 * n_layers, len(X_batch), hidden_dim, device = device), torch.randn(2 * n_layers, len(X_batch), hidden_dim, device = device)))
         return self.linear(output[:,-1])
 
 tokenizer = get_tokenizer('basic_english')
 model = RNNClassifier()
-model = model.to("cuda")
+model = model.to(device)
 model.load_state_dict(torch.load("model.pth"))
 vocab = torch.load("vocab.pt")
 max_words = 2000
@@ -63,7 +63,7 @@ def showform():
         text_data = text_data +([0]* (max_words-len(text_data))) if len(text_data)<max_words else text_data[:max_words]
         text_data = torch.tensor(text_data, dtype = torch.int32)
         text_data = torch.unsqueeze(text_data, 0)
-        text_data = text_data.to("cuda")
+        text_data = text_data.to(device)
         pred = torch.squeeze(model(text_data)).cpu().detach().numpy()
         pred = np.where(pred>0.5)
         # report.append("Toxic: {}".format(pred[0]))
