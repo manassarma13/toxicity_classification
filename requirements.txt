@@ -1,0 +1,6 @@
+torch
+numpy
+torchtext
+flask
+flask_wtf
+
