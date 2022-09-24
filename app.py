@@ -77,6 +77,15 @@ def showform():
             report = ["Non-Toxic"]
         flash("Report generated successfully!! Click on home if you want to get another prediction.")
     return render_template("index.html", report = report, form = form)
+
+@app.route('/instructions', methods = ['GET'])
+def show_instructions():
+    return render_template("instructions.html")
+
+@app.route('/about', methods = ['GET'])
+def show_about():
+    return render_template("about.html")
+
 '''
 @app.errorhandler(500)
 def page_not_found(e):
