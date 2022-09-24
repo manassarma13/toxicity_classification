@@ -1,22 +1,29 @@
 {% extends 'base.html' %}
-
 {% block content %}
-This web application takes a block of text as input to analyze the toxicity conveyed by it. There is no specific format in which the text is to be entered. The web app provides the following classes as output depending on the type and intensity of the meaning which is self-explanatory:
-<ul>
-  <li>"Toxic"</li>
-  <li>"Severe Toxic"</li>
-  <li> "Obscene"</li>
-  <li> "Threat"</li>
-  <li>"Insult"</li>
-  <li>"Identity Hate"</li>
-</ul>
 
-Apart from the above six classes, the app also predicts the input text as "Non-Toxic" in case it doesn't contain toxicity.
+<link rel="styles" href="./../static/instructions.css">
+<div class="some-div">
+	This web application takes a block of text as input to analyze the toxicity conveyed by it. There is no specific
+	format in which the text is to be entered. The web app provides the following classes as output depending on the
+	type and intensity of the meaning which is self-explanatory:
+	<ul>
+		<li>"Toxic"</li>
+		<li>"Severe Toxic"</li>
+		<li> "Obscene"</li>
+		<li> "Threat"</li>
+		<li>"Insult"</li>
+		<li>"Identity Hate"</li>
+	</ul>
 
-To get started, provide the text/statemet/comment that you want to check for presence of toxicity in the text box as shown below.
+	Apart from the above six classes, the app also predicts the input text as "Non-Toxic" in case it doesn't contain
+	toxicity.
 
-Click on submit to feed the input to the web app and get output.
+	To get started, provide the text/statemet/comment that you want to check for presence of toxicity in the text
+	box as
+	shown below.
 
-To get another prediction, click on home button.
+	Click on submit to feed the input to the web app and get output.
 
+	To get another prediction, click on home button.
+</div>
 {% endblock %}

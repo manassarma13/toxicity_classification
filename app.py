@@ -7,7 +7,7 @@ import torch
 from torch import nn
 from torchtext.data.utils import get_tokenizer
 from utils import RNNClassifier
-device = device if torch.cuda.is_available() else "cpu"
+device =  "cuda" if torch.cuda.is_available() else "cpu"
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "Rajarshi"
 
@@ -46,7 +46,7 @@ class RNNClassifier(nn.Module):
 tokenizer = get_tokenizer('basic_english')
 model = RNNClassifier()
 model = model.to(device)
-model.load_state_dict(torch.load("model.pth"))
+model.load_state_dict(torch.load("model.pth", map_location=device))
 vocab = torch.load("vocab.pt")
 max_words = 2000
 classes = np.array(["Toxic", "Severe Toxic", "Obscene", "Threat", "Insult", "Identity Hate"])
